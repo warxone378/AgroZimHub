@@ -1,0 +1,56 @@
+import os
+
+SECRET_KEY = os.urandom(24)
+DEBUG = True
+
+# SQLite Database
+SQLALCHEMY_DATABASE_URI = 'sqlite:///agrozim.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+# OpenWeatherMap API (get free key from https://openweathermap.org/api)
+WEATHER_API_KEY = "21a19f388c785be5a6e02fbf77f130e5"
+WEATHER_CITY = "Harare,ZW"
+
+# Zimbabwe Provinces
+PROVINCES = [
+    'Bulawayo', 'Harare', 'Manicaland', 'Mashonaland Central',
+    'Mashonaland East', 'Mashonaland West', 'Masvingo',
+    'Matabeleland North', 'Matabeleland South', 'Midlands'
+]
+
+# Crop types for marketplace
+CROP_TYPES = ['Maize', 'Wheat', 'Soybean', 'Groundnut', 'Cotton', 'Sunflower', 'Sorghum']
+
+# Soil types
+SOIL_TYPES = ['Sandy', 'Clay', 'Loam', 'Silty', 'Peaty']
+
+# Seed types (for predictor)
+SEED_TYPES = ['Hybrid Maize', 'Open Pollinated Maize', 'Wheat', 'Soybean', 'Sorghum']
+
+# Province to city mapping for weather API
+PROVINCE_CITY = {
+    'Bulawayo': 'Bulawayo,ZW',
+    'Harare': 'Harare,ZW',
+    'Manicaland': 'Mutare,ZW',
+    'Mashonaland Central': 'Bindura,ZW',
+    'Mashonaland East': 'Marondera,ZW',
+    'Mashonaland West': 'Chinhoyi,ZW',
+    'Masvingo': 'Masvingo,ZW',
+    'Matabeleland North': 'Lupane,ZW',
+    'Matabeleland South': 'Gwanda,ZW',
+    'Midlands': 'Gweru,ZW'
+}
+
+PROVINCE_CITY = {
+    'Bulawayo': 'Bulawayo,ZW',
+    'Harare': 'Harare,ZW',
+    'Manicaland': 'Mutare,ZW',
+    'Mashonaland Central': 'Bindura,ZW',
+    'Mashonaland East': 'Marondera,ZW',
+    'Mashonaland West': 'Chinhoyi,ZW',
+    'Masvingo': 'Masvingo,ZW',
+    'Matabeleland North': 'Lupane,ZW',
+    'Matabeleland South': 'Gwanda,ZW',
+    'Midlands': 'Gweru,ZW'
+}
+GEMINI_API_KEY = "AIzaSyD9mYPLbfhopn7_0rJTnc3r96BkY7YRA4s"
