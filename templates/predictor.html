@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-6">🌱 AI Planting Advisor</h2>
+    <form method="POST" class="card p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div><label class="block text-sm font-medium">Province</label><select name="province" class="w-full mt-1 p-2 border rounded">{% for p in provinces %}<option>{{ p }}</option>{% endfor %}</select></div>
+            <div><label class="block text-sm font-medium">Seed Type</label><select name="seed_type" class="w-full mt-1 p-2 border rounded">{% for s in seed_types %}<option>{{ s }}</option>{% endfor %}</select></div>
+            <div><label class="block text-sm font-medium">Hectares</label><input type="number" step="0.1" name="hectares" class="w-full mt-1 p-2 border rounded"></div>
+            <div><label class="block text-sm font-medium">Soil Type</label><select name="soil_type" class="w-full mt-1 p-2 border rounded">{% for st in soil_types %}<option>{{ st }}</option>{% endfor %}</select></div>
+            <div><label class="block text-sm font-medium">Soil pH</label><input type="number" step="0.1" name="soil_ph" class="w-full mt-1 p-2 border rounded"></div>
+        </div>
+        <div class="mt-6"><button type="submit" class="btn-primary w-full">Get Recommendation</button></div>
+    </form>
+    {% if recommendation %}
+    <div class="mt-6 card p-6 bg-emerald-50">
+        <h3 class="text-lg font-semibold mb-2">AI Recommendation</h3>
+        <p><strong>pH Advice:</strong> {{ recommendation.ph_advice }}</p>
+        <p><strong>Soil Advice:</strong> {{ recommendation.soil_advice }}</p>
+        <p><strong>Seed Advice:</strong> {{ recommendation.seed_advice }}</p>
+        <p><strong>Fertilizer:</strong> {{ recommendation.fertilizer_kg }} kg</p>
+        <p><strong>Expected Yield:</strong> {{ recommendation.expected_yield_tons }} tons</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

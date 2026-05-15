@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-3xl font-bold mb-4">⚠️ Weather Warnings</h2>
+<div class="card p-6">
+    <p><strong>📍 Current:</strong> {{ weather.temperature }}°C, {{ weather.condition }}, Humidity {{ weather.humidity }}%</p>
+    <p><strong>🌧️ Rain last 3h:</strong> {{ weather.rain_mm }} mm</p>
+    <div class="mt-4 p-3 bg-gray-50 rounded">
+        <p><strong>Flood risk:</strong> <span class="font-bold">{{ analysis.flood_risk|upper }}</span></p>
+        <p><strong>Dry spell risk:</strong> <span class="font-bold">{{ analysis.dry_spell_risk|upper }}</span></p>
+    </div>
+    <div class="mt-4"><strong>AI Suggestions:</strong><ul class="list-disc pl-5">{% for s in analysis.suggestions %}<li>{{ s }}</li>{% endfor %}</ul></div>
+</div>
+{% endblock %}

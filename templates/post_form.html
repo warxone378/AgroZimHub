@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-xl mx-auto">
+    <h2 class="text-2xl font-bold text-emerald-400 mb-4">New Discussion Post</h2>
+    <form method="POST" class="bg-slate-800 p-5 rounded-xl">
+        <input type="text" name="title" placeholder="Title" required class="w-full mb-3 p-2 bg-slate-700 rounded">
+        <textarea name="content" placeholder="Your question or comment..." required rows="6" class="w-full mb-4 p-2 bg-slate-700 rounded"></textarea>
+        <button type="submit" class="w-full bg-emerald-600 py-2 rounded">Post</button>
+    </form>
+</div>
+{% endblock %}

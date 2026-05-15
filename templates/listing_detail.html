@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto bg-slate-800 rounded-xl p-6">
+    <h2 class="text-2xl font-bold mb-2">{{ listing.title }}</h2>
+    <div class="flex gap-4 text-sm text-slate-300 mb-4">
+        <span class="text-emerald-400">{{ listing.crop_type }}</span>
+        <span>📍 {{ listing.location_province }}</span>
+        <span>👁️ {{ listing.view_count }} views</span>
+    </div>
+    <div class="mb-4">
+        <p class="text-3xl font-bold text-emerald-400">${{ "%.2f"|format(listing.price_per_kg) }}/kg</p>
+        <p class="text-slate-300">Quantity: {{ listing.quantity_kg }} kg available</p>
+    </div>
+    <div class="mb-6">
+        <h3 class="font-semibold mb-1">Description</h3>
+        <p class="text-slate-300">{{ listing.description or "No description provided." }}</p>
+    </div>
+    <div class="mb-6">
+        <h3 class="font-semibold mb-1">Seller Info</h3>
+        <p>👤 {{ seller.username }} ({{ seller.role }})</p>
+        <p>📞 {{ seller.phone_number }}</p>
+        <p>📍 {{ seller.location_province }}</p>
+    </div>
+    <div class="flex gap-3">
+        <input type="number" id="order-qty" placeholder="Order quantity (kg)" class="flex-1 px-3 py-2 bg-slate-700 rounded-lg">
+        <button class="whatsapp-chat bg-green-600 px-4 py-2 rounded-lg font-semibold"
+                data-phone="{{ seller.phone_number }}"
+                data-listing-id="{{ listing.id }}"
+                data-crop="{{ listing.crop_type }}"
+                onclick="const qty = document.getElementById('order-qty').value; window.open(`https://wa.me/{{ seller.phone_number }}?text=${encodeURIComponent(`Hello, I want to order ${qty || 'some'} kg of ${listing.crop_type}.`)}`, '_blank')">
+            💬 Chat on WhatsApp
+        </button>
+    </div>
+    {% if session.user_id == listing.seller_id %}
+    <div class="flex gap-3 mt-4">
+        <a href="{{ url_for('edit_listing', id=listing.id) }}" class="bg-amber-600 px-4 py-2 rounded-lg text-center flex-1">Edit</a>
+        <form method="POST" action="{{ url_for('delete_listing', id=listing.id) }}" class="flex-1" onsubmit="return confirm('Delete?')">
+            <button type="submit" class="bg-red-600 w-full px-4 py-2 rounded-lg">Delete</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

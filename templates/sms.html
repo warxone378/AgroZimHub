@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-md mx-auto">
+    <h2 class="text-2xl font-bold text-emerald-400 mb-4">📱 Send SMS Alert</h2>
+    <form method="POST" class="bg-slate-800 p-5 rounded-xl">
+        <input type="tel" name="phone" placeholder="Phone number (e.g., 2637xxxxxxx)" required class="w-full mb-3 p-2 bg-slate-700 rounded">
+        <textarea name="message" placeholder="Alert message" required class="w-full mb-4 p-2 bg-slate-700 rounded" rows="3"></textarea>
+        <button type="submit" class="w-full bg-emerald-600 py-2 rounded">Send (Simulated)</button>
+    </form>
+    {% if status %}
+    <div class="mt-3 p-2 bg-slate-700 rounded">{{ status }}</div>
+    {% endif %}
+</div>
+{% endblock %}

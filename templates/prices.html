@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h2 class="text-2xl font-bold text-emerald-400 mb-4">📊 Local Market Prices (USD/kg)</h2>
+    <div class="bg-slate-800 rounded-xl overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-slate-700">
+                <tr><th class="p-3">Crop</th><th>Price (USD/kg)</th><th>Trend</th></tr>
+            </thead>
+            <tbody>
+                {% for crop, price, trend in prices %}
+                <tr class="border-b border-slate-700"><td class="p-3">{{ crop }}</td><td>${{ price }}</td><td>{{ trend }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <p class="text-xs text-slate-400 mt-2">*Simulated data – integrate with ZAMACE or local markets</p>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h2 class="text-2xl font-bold text-emerald-400 mb-4">🤖 AI Farming Assistant</h2>
+    <div class="bg-slate-800 rounded-xl p-4 h-96 overflow-y-auto mb-4" id="chatBox">
+        <div class="text-slate-400 text-center">Ask me anything about farming, pests, weather, or crops.</div>
+    </div>
+    <form id="chatForm" class="flex gap-2">
+        <input type="text" id="question" placeholder="Type your question..." required class="flex-1 p-2 bg-slate-700 rounded-lg">
+        <button type="submit" class="bg-emerald-600 px-4 py-2 rounded-lg">Send</button>
+    </form>
+</div>
+<script>
+    const chatBox = document.getElementById('chatBox');
+    const form = document.getElementById('chatForm');
+    const questionInput = document.getElementById('question');
+
+    function addMessage(text, isUser) {
+        const div = document.createElement('div');
+        div.className = `mb-2 p-2 rounded-lg ${isUser ? 'bg-emerald-800 text-right' : 'bg-slate-700'}`;
+        div.innerHTML = `<strong>${isUser ? 'You' : 'AI'}:</strong> ${text}`;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const q = questionInput.value.trim();
+        if (!q) return;
+        addMessage(q, true);
+        questionInput.value = '';
+        addMessage('Thinking...', false);
+        const response = await fetch('/chat_api', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({question: q})
+        });
+        const data = await response.json();
+        chatBox.lastChild.remove();
+        addMessage(data.answer, false);
+    });
+</script>
+{% endblock %}
+<script>
+// Add voice input button next to text field
+const inputGroup = document.createElement('div');
+inputGroup.className = 'flex gap-2 mt-2';
+const micButton = document.createElement('button');
+micButton.type = 'button';
+micButton.innerHTML = '🎤';
+micButton.className = 'bg-slate-700 px-3 py-2 rounded-lg';
+micButton.onclick = () => {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';  // or 'sn' for Shona (limited support)
+    recognition.onresult = (event) => {
+        document.getElementById('question').value = event.results[0][0].transcript;
+    };
+    recognition.start();
+};
+document.querySelector('#chatForm').insertBefore(micButton, document.querySelector('#chatForm button'));
+</script>

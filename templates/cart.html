@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">My Cart</h2>
+    {% if items %}
+        <div class="space-y-4">
+            {% for item in items %}
+            <div class="bg-white rounded-xl shadow-sm p-4 flex flex-wrap justify-between items-center">
+                <div class="flex-1">
+                    <h3 class="font-semibold text-gray-800">{{ item.listing.title }}</h3>
+                    <p class="text-sm text-gray-500">${{ "%.2f"|format(item.listing.price_per_kg) }}/kg</p>
+                </div>
+                <form method="POST" action="{{ url_for('update_cart', listing_id=item.listing.id) }}" class="flex items-center gap-2">
+                    <input type="number" step="0.5" name="quantity" value="{{ item.quantity }}" class="w-20 p-1 border border-gray-300 rounded text-center">
+                    <button type="submit" class="text-emerald-600 text-sm hover:underline">Update</button>
+                </form>
+                <div class="text-right">
+                    <p class="font-semibold">${{ "%.2f"|format(item.subtotal) }}</p>
+                    <a href="{{ url_for('remove_from_cart', listing_id=item.listing.id) }}" class="text-red-500 text-sm">Remove</a>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="bg-gray-50 p-4 rounded-xl flex justify-between items-center">
+                <span class="text-lg font-bold">Total</span>
+                <span class="text-xl font-bold text-emerald-600">${{ "%.2f"|format(total) }}</span>
+            </div>
+            <div class="text-center mt-4">
+                <a href="{{ url_for('checkout') }}" class="btn-primary inline-block px-6 py-2">Proceed to Checkout</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="bg-white p-8 rounded-xl text-center text-gray-500">Your cart is empty. Start shopping!</div>
+    {% endif %}
+</div>
+{% endblock %}

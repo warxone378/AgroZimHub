@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-slate-800 p-5 rounded-xl mb-4">
+        <h2 class="text-xl font-bold">{{ post.title }}</h2>
+        <p class="text-sm text-slate-400 mb-2">By {{ post.author }} on {{ post.date }}</p>
+        <p>{{ post.content }}</p>
+    </div>
+    <h3 class="font-semibold mb-2">Replies</h3>
+    {% for reply in replies %}
+    <div class="bg-slate-700 p-3 rounded mb-2">
+        <p class="text-sm"><strong>{{ reply.author }}</strong>: {{ reply.content }}</p>
+    </div>
+    {% else %}
+    <p class="text-slate-400">No replies yet.</p>
+    {% endfor %}
+    {% if session.user_id %}
+    <form method="POST" class="mt-4">
+        <textarea name="reply" placeholder="Write a reply..." required class="w-full p-2 bg-slate-800 rounded border border-slate-600"></textarea>
+        <button type="submit" class="mt-2 bg-emerald-600 px-3 py-1 rounded">Post Reply</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

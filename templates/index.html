@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center py-12">
+    <h1 class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-emerald-700 to-emerald-500 bg-clip-text text-transparent">Welcome to AgroZim Hub</h1>
+    <p class="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">Empowering Zimbabwean farmers with AI insights, real‑time market, and climate‑smart tools.</p>
+    <div class="mt-8 flex justify-center gap-4">
+        {% if not session.user_id %}
+        <a href="/register" class="btn-primary">Get Started Free</a>
+        <a href="/login" class="btn-outline">Login</a>
+        {% else %}
+        <a href="/predictor" class="btn-primary">🌱 AI Planting Advisor</a>
+        <a href="/marketplace" class="btn-outline">🛒 Browse Marketplace</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+    <div class="card p-6 text-center">
+        <div class="text-emerald-600 text-5xl mb-3">🌾</div>
+        <h3 class="text-xl font-semibold mb-2">AI Predictor</h3>
+        <p class="text-gray-500">Personalised planting strategies based on your soil, crop, and region.</p>
+    </div>
+    <div class="card p-6 text-center">
+        <div class="text-emerald-600 text-5xl mb-3">🛒</div>
+        <h3 class="text-xl font-semibold mb-2">Marketplace</h3>
+        <p class="text-gray-500">Buy and sell crops directly. Secure checkout and order tracking.</p>
+    </div>
+    <div class="card p-6 text-center">
+        <div class="text-emerald-600 text-5xl mb-3">⚠️</div>
+        <h3 class="text-xl font-semibold mb-2">Weather Warnings</h3>
+        <p class="text-gray-500">Real‑time flood and dry‑spell alerts to protect your harvest.</p>
+    </div>
+</div>
+
+<div class="mt-16 bg-emerald-50 rounded-2xl p-8 text-center">
+    <h2 class="text-2xl font-bold text-emerald-800">Trusted by farmers across Zimbabwe</h2>
+    <p class="text-gray-600 mt-2">Join thousands of users already improving their yields with AgroZim Hub.</p>
+</div>
+{% endblock %}

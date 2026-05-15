@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Live Tracking</h2>
+    <div class="bg-white rounded-xl shadow-sm p-6 mb-4">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-2xl">🚚</div>
+            <div>
+                <p class="font-bold">Robert Appiah</p>
+                <p class="text-sm text-gray-500">Your delivery partner</p>
+            </div>
+        </div>
+        <div class="bg-gray-100 h-48 rounded-lg flex items-center justify-center text-gray-400 mb-3">
+            🗺️ Live Map (GPS tracking)
+        </div>
+        <p class="text-sm text-emerald-600">📍 5 km away • ETA 20-30 min</p>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6">
+        <h3 class="font-semibold mb-2">Current Order</h3>
+        <p>Fresh Tomatoes • 2 kg</p>
+        <p class="text-sm text-gray-500">Order #1234 • Processing</p>
+    </div>
+</div>
+{% endblock %}

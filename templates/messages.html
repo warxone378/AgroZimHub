@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Messages</h2>
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div class="divide-y divide-gray-100">
+            <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                <div class="flex justify-between"><span class="font-semibold">Eris Gyampo</span><span class="text-xs text-gray-400">2h ago</span></div>
+                <p class="text-sm text-gray-600">You’re free fresh tomatoes</p>
+            </div>
+            <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                <div class="flex justify-between"><span class="font-semibold">Justine Abebe</span><span class="text-xs text-gray-400">Yesterday</span></div>
+                <p class="text-sm text-gray-600">We can deliver for you anytime</p>
+            </div>
+            <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                <div class="flex justify-between"><span class="font-semibold">Fasilima Dash</span><span class="text-xs text-gray-400">Yesterday</span></div>
+                <p class="text-sm text-gray-600">Produce are available</p>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4 bg-white rounded-xl shadow-sm p-4">
+        <div class="flex gap-2">
+            <input type="text" placeholder="Type a message..." class="flex-1 p-2 border border-gray-300 rounded-lg">
+            <button class="bg-emerald-600 text-white px-4 py-2 rounded-lg">Send</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

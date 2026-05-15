@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Fresh Produce</h2>
+    {% if session.user_id %}
+    <a href="{{ url_for('create_listing') }}" class="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm">+ Sell</a>
+    {% endif %}
+</div>
+
+<!-- Filters -->
+<div class="bg-white p-4 rounded-xl shadow-sm mb-6">
+    <form method="POST" class="flex flex-wrap gap-3">
+        <input type="text" name="search" placeholder="Search products..." value="{{ request.args.get('search', '') }}" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+        <select name="location" class="px-3 py-2 border border-gray-300 rounded-lg bg-white">
+            <option value="">All Zimbabwe</option>
+            {% for p in provinces %}
+            <option value="{{ p }}" {% if request.args.get('location') == p %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded-lg">Filter</button>
+    </form>
+</div>
+
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for listing in listings %}
+    <div class="card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
+        <div class="h-40 bg-gray-100 flex items-center justify-center text-4xl">
+            🌽 <!-- Placeholder image icon -->
+        </div>
+        <div class="p-4">
+            <div class="flex justify-between items-start">
+                <h3 class="text-lg font-bold text-gray-800">{{ listing.title }}</h3>
+                <span class="text-emerald-600 font-bold">${{ "%.2f"|format(listing.price_per_kg) }}/kg</span>
+            </div>
+            <p class="text-sm text-gray-500 mb-1">{{ listing.crop_type }} • {{ listing.location_province }}</p>
+            <p class="text-sm text-gray-600 mb-3">{{ listing.description[:80] }}...</p>
+            <div class="flex flex-wrap gap-2 items-center">
+                <form method="POST" action="{{ url_for('add_to_cart', listing_id=listing.id) }}" class="inline">
+                    <input type="number" name="quantity" value="1" step="0.5" class="w-20 p-1 border border-gray-300 rounded text-sm">
+                    <button type="submit" class="bg-emerald-600 text-white px-3 py-1 rounded-lg text-sm">Add to Cart</button>
+                </form>
+                <a href="{{ url_for('view_listing', id=listing.id) }}" class="text-emerald-600 text-sm hover:underline">Details</a>
+                <a href="https://wa.me/{{ listing.seller.phone_number }}" target="_blank" class="text-green-600 text-sm">Chat</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-span-full text-center py-12 text-gray-500">No products found. Be the first to list!</div>
+    {% endfor %}
+</div>
+{% endblock %}

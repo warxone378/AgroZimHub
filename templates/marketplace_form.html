@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto bg-slate-800 rounded-xl p-6">
+    <h2 class="text-2xl font-bold mb-6 text-emerald-400">{% if listing %}Edit Listing{% else %}Create New Listing{% endif %}</h2>
+    <form method="POST">
+        <div class="grid gap-4">
+            <div>
+                <label class="block text-sm font-medium mb-1">Title</label>
+                <input type="text" name="title" required value="{{ listing.title if listing else '' }}" class="w-full px-3 py-2 bg-slate-700 rounded-lg">
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Crop Type</label>
+                <select name="crop_type" required class="w-full px-3 py-2 bg-slate-700 rounded-lg">
+                    {% for ct in CROP_TYPES %}
+                    <option value="{{ ct }}" {% if listing and listing.crop_type == ct %}selected{% endif %}>{{ ct }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Quantity (kg)</label>
+                <input type="number" step="0.1" name="quantity" required value="{{ listing.quantity_kg if listing else '' }}" class="w-full px-3 py-2 bg-slate-700 rounded-lg">
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Price per kg (USD)</label>
+                <input type="number" step="0.01" name="price" required value="{{ listing.price_per_kg if listing else '' }}" class="w-full px-3 py-2 bg-slate-700 rounded-lg">
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Location (Province)</label>
+                <select name="location" required class="w-full px-3 py-2 bg-slate-700 rounded-lg">
+                    {% for p in provinces %}
+                    <option value="{{ p }}" {% if listing and listing.location_province == p %}selected{% endif %}>{{ p }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Description</label>
+                <textarea name="description" rows="4" class="w-full px-3 py-2 bg-slate-700 rounded-lg">{{ listing.description if listing else '' }}</textarea>
+            </div>
+        </div>
+        <button type="submit" class="mt-6 w-full bg-emerald-600 py-2 rounded-lg font-semibold">{% if listing %}Update{% else %}Create{% endif %} Listing</button>
+    </form>
+</div>
+{% endblock %}

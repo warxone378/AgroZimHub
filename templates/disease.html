@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-md mx-auto">
+    <h2 class="text-2xl font-bold text-emerald-400 mb-4">🌿 Crop Disease Detector</h2>
+    <form method="POST" enctype="multipart/form-data" class="bg-slate-800 p-5 rounded-xl">
+        <input type="file" name="image" accept="image/*" required class="w-full mb-4 p-2 bg-slate-700 rounded">
+        <button type="submit" class="w-full bg-emerald-600 py-2 rounded">Analyze</button>
+    </form>
+    {% if result %}
+    <div class="mt-4 p-3 bg-slate-700 rounded">
+        <p><strong>Prediction:</strong> {{ result.disease }}</p>
+        <p><strong>Confidence:</strong> {{ result.confidence }}%</p>
+        <p><strong>Treatment:</strong> {{ result.treatment }}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

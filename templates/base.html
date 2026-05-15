@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>AgroZim Hub – Zimbabwe Agriculture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-image: url('/static/farming-bg.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.88);
+            z-index: -1;
+        }
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.15);
+        }
+        .btn-primary {
+            background-color: #059669;
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #047857;
+            transform: scale(1.02);
+        }
+        .btn-outline {
+            border: 1px solid #059669;
+            color: #059669;
+            background: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-outline:hover {
+            background: #ecfdf5;
+            transform: scale(1.02);
+        }
+        nav a, .mobile-menu a {
+            font-weight: 500;
+        }
+        .footer {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- Navigation Bar -->
+    <nav class="bg-white/95 backdrop-blur-sm shadow-md sticky top-0 z-50 border-b border-emerald-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-extrabold bg-gradient-to-r from-emerald-700 to-emerald-500 bg-clip-text text-transparent">🌾 AgroZim Hub</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="/" class="text-gray-700 hover:text-emerald-600 transition">Home</a>
+                    {% if session.user_id %}
+                    <a href="/predictor" class="text-gray-700 hover:text-emerald-600 transition">AI Predictor</a>
+                    <a href="/marketplace" class="text-gray-700 hover:text-emerald-600 transition">Marketplace</a>
+                    <a href="/weather_warnings" class="text-gray-700 hover:text-emerald-600 transition">Warnings</a>
+                    <a href="/silo_dashboard" class="text-gray-700 hover:text-emerald-600 transition">Silo</a>
+                    <a href="/verify_batch" class="text-gray-700 hover:text-emerald-600 transition">Ledger</a>
+                    <a href="/forum" class="text-gray-700 hover:text-emerald-600 transition">Forum</a>
+                    <a href="/cart" class="text-gray-700 hover:text-emerald-600 transition">🛒 Cart</a>
+                    <a href="/profile" class="text-gray-700 hover:text-emerald-600 transition">Profile</a>
+                    <a href="/logout" class="text-red-600 hover:text-red-800 transition">Logout</a>
+                    {% else %}
+                    <a href="/login" class="text-gray-700 hover:text-emerald-600 transition">Login</a>
+                    <a href="/register" class="btn-primary">Register</a>
+                    {% endif %}
+                </div>
+                <div class="flex items-center md:hidden">
+                    <button id="hamburger" class="text-gray-700 focus:outline-none text-2xl">☰</button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 py-3 px-4 space-y-2">
+            <a href="/" class="block py-2 text-gray-700 hover:text-emerald-600">Home</a>
+            {% if session.user_id %}
+            <a href="/predictor" class="block py-2 text-gray-700 hover:text-emerald-600">AI Predictor</a>
+            <a href="/marketplace" class="block py-2 text-gray-700 hover:text-emerald-600">Marketplace</a>
+            <a href="/weather_warnings" class="block py-2 text-gray-700 hover:text-emerald-600">Warnings</a>
+            <a href="/silo_dashboard" class="block py-2 text-gray-700 hover:text-emerald-600">Silo</a>
+            <a href="/verify_batch" class="block py-2 text-gray-700 hover:text-emerald-600">Ledger</a>
+            <a href="/forum" class="block py-2 text-gray-700 hover:text-emerald-600">Forum</a>
+            <a href="/cart" class="block py-2 text-gray-700 hover:text-emerald-600">Cart</a>
+            <a href="/profile" class="block py-2 text-gray-700 hover:text-emerald-600">Profile</a>
+            <a href="/logout" class="block py-2 text-red-600">Logout</a>
+            {% else %}
+            <a href="/login" class="block py-2 text-gray-700 hover:text-emerald-600">Login</a>
+            <a href="/register" class="block py-2 text-emerald-600 font-semibold">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-5 p-4 rounded-xl shadow-sm {% if category == 'success' %}bg-emerald-50 border-l-4 border-emerald-500 text-emerald-800{% elif category == 'danger' %}bg-red-50 border-l-4 border-red-500 text-red-800{% else %}bg-blue-50 border-l-4 border-blue-500 text-blue-800{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>© 2025 AgroZim Hub – Empowering Zimbabwean Agriculture. All rights reserved.</p>
+            <p class="mt-1 text-xs">🌍 Connecting farmers, agronomists, and buyers for a sustainable future.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>
